@@ -37,6 +37,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+
 while(1 == 1){
 variableInitialize();
 standbyState();
@@ -45,6 +46,7 @@ output();
 }
 
 }
+
   
   
 
@@ -269,6 +271,7 @@ int gameplay(){
   }
 }
 
+
   void output(){
   	if(currentGame == 0 && currentScore > 0){
   		lcd.clear();
@@ -277,6 +280,7 @@ int gameplay(){
     	delay(5000);
       //lcd.clear();
       currentScore = 0;
+
   		//lcd.print(score); // this line is gonna be wonky. Need way to print integer and to_string didnt work
     }
   }
