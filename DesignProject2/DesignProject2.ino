@@ -37,10 +37,14 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+
+while(1 == 1){
 variableInitialize();
 standbyState();
 unsigned int finalScore = gameplay();
-output(finalScore);
+output();
+}
+
 }
 
   
@@ -171,14 +175,14 @@ bool validateInput(int in, unsigned int ti){
            delay(200);
            return true;
           }
-          if(((analogRead(XJoy) > 515 || analogRead(XJoy) < 502) || (analogRead(YJoy) > 515 || analogRead(YJoy) < 490)) || analogRead(PotWiper) > 100){
+          if(((analogRead(XJoy) > 515 || analogRead(XJoy) < 502) || (analogRead(YJoy) > 515 || analogRead(YJoy) < 490)) || analogRead(PotWiper) > 100 || currTime + ti < millis()){
             return false;
           }
         }
         break;
       case 2:
         while(joystickIn == false){
-          if((analogRead(XJoy) > 515 || analogRead(XJoy) < 502) || (analogRead(YJoy) > 515 || analogRead(YJoy) < 490)){
+          if((analogRead(XJoy) > 515 || analogRead(XJoy) < 502) || (analogRead(YJoy) > 515 || analogRead(YJoy) < 490) || currTime + ti < millis()){
           delay(500);
           return true;
           }
@@ -193,7 +197,7 @@ bool validateInput(int in, unsigned int ti){
           delay(500);
           return true;
          }
-         if((analogRead(XJoy) > 515 || analogRead(XJoy) < 502) || (analogRead(YJoy) > 515 || analogRead(YJoy) < 490) || digitalRead(DrumIn) != LOW){
+         if((analogRead(XJoy) > 515 || analogRead(XJoy) < 502) || (analogRead(YJoy) > 515 || analogRead(YJoy) < 490) || digitalRead(DrumIn) != LOW || currTime + ti < millis()){
           return false;
          }
          }
@@ -267,13 +271,16 @@ int gameplay(){
   }
 }
 
-  void output(unsigned int score){
-  	if(currentGame == 0 && score > 0){
+
+  void output(){
+  	if(currentGame == 0 && currentScore > 0){
   		lcd.clear();
   		lcd.setCursor(0,0);
-    	lcd.print("Game Over");
-    	delay(2000);
-      lcd.clear();
+    	lcd.print(currentScore);
+    	delay(5000);
+      //lcd.clear();
+      currentScore = 0;
+
   		//lcd.print(score); // this line is gonna be wonky. Need way to print integer and to_string didnt work
     }
   }
